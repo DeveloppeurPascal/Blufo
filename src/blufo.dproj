@@ -5,11 +5,12 @@
         <FrameworkType>FMX</FrameworkType>
         <MainSource>blufo.dpr</MainSource>
         <Base>True</Base>
-        <Config Condition="'$(Config)'==''">Release</Config>
-        <Platform Condition="'$(Platform)'==''">iOSDevice64</Platform>
+        <Config Condition="'$(Config)'==''">Debug</Config>
+        <Platform Condition="'$(Platform)'==''">Win32</Platform>
         <TargetedPlatforms>168979</TargetedPlatforms>
         <AppType>Application</AppType>
         <PlatformSDK Condition="'$(PlatformSDK)'=='' And '$(Platform)'=='Android64'">AndroidSDK25.2.5_64bit.sdk</PlatformSDK>
+        <ProjectName Condition="'$(ProjectName)'==''">blufo</ProjectName>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
@@ -283,12 +284,6 @@
         <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=fr;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.olfsoftware.blufo.ios;CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.0.0.0;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=The reason for accessing the location information of the user;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera;CFBundleShortVersionString=1.0.0;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSFaceIDUsageDescription=The reason for accessing the face id;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers</VerInfo_Keys>
         <iPhone_Spotlight120>..\assets\icons\blufo-120x120.png</iPhone_Spotlight120>
         <iPad_AppIcon167>..\assets\icons\blufo-167x167.png</iPad_AppIcon167>
-        <iPhone_Launch2x>..\assets\icons\blufo-1024x1024.png</iPhone_Launch2x>
-        <iPhone_LaunchDark2x>..\assets\icons\blufo-1024x1024.png</iPhone_LaunchDark2x>
-        <iPhone_Launch3x>..\assets\icons\blufo-1024x1024.png</iPhone_Launch3x>
-        <iPhone_LaunchDark3x>..\assets\icons\blufo-1024x1024.png</iPhone_LaunchDark3x>
-        <iPad_Launch2x>..\assets\icons\blufo-1024x1024.png</iPad_Launch2x>
-        <iPad_LaunchDark2x>..\assets\icons\blufo-1024x1024.png</iPad_LaunchDark2x>
         <iOS_AppStore1024>..\assets\icons\blufo-1024x1024.png</iOS_AppStore1024>
         <iPhone_Notification60>..\assets\icons\blufo-60x60.png</iPhone_Notification60>
         <iPhone_Setting87>..\assets\icons\blufo-87x87.png</iPhone_Setting87>
@@ -473,34 +468,42 @@
         <DCC_DebugInformation>0</DCC_DebugInformation>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Android)'!=''">
-        <VerInfo_Build>10</VerInfo_Build>
+        <VerInfo_Build>11</VerInfo_Build>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>package=fr.olfsoftware.blufo.android;label=$(MSBuildProjectName);versionCode=10;versionName=1.2;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=34</VerInfo_Keys>
+        <VerInfo_Keys>package=fr.olfsoftware.blufo.android;label=$(MSBuildProjectName);versionCode=11;versionName=1.2;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=34</VerInfo_Keys>
         <BT_BuildType>AppStore</BT_BuildType>
         <IncludeAndroid_NotificationAccentColor>false</IncludeAndroid_NotificationAccentColor>
         <Android_BackgroundColor>#5F406D</Android_BackgroundColor>
         <Android_DarkBackgroundColor>#5F406D</Android_DarkBackgroundColor>
+        <PF_KeyStore>..\_PRIVATE\blufo-android.keystore</PF_KeyStore>
+        <PF_KeyStorePass>852B47985FC3079ECF79E579A4047BF1E4420849A007979E97FF0FD68E643CD0DB48A3D6E35F1C31C1B0572FFA95C375BABB3651043C2288165745F0E5F4228DC949F31ED506FADDBFCAAF0D071E1D0F92013E44</PF_KeyStorePass>
+        <PF_AliasKey>blufo</PF_AliasKey>
+        <PF_AliasKeyPass>852B47CF5FC00782CF65E52CA4047BF1E44C0815A007979E97FF0FD68E643CD0DB48A3D6E35F1C31C1B0572FFA95C375BABB3651043C2288165745F0E5F4228DC949F31ED506FADDBFCAAF0D071E1D0F92013E44</PF_AliasKeyPass>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_Android64)'!=''">
         <Cfg_2_Android>true</Cfg_2_Android>
         <CfgParent>Cfg_2</CfgParent>
         <Cfg_2>true</Cfg_2>
-        <VerInfo_Build>6</VerInfo_Build>
+        <VerInfo_Build>7</VerInfo_Build>
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Keys>package=fr.olfsoftware.blufo.android;label=$(MSBuildProjectName);versionCode=6;versionName=1.2;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=34</VerInfo_Keys>
+        <VerInfo_Keys>package=fr.olfsoftware.blufo.android;label=$(MSBuildProjectName);versionCode=7;versionName=1.2;persistent=False;restoreAnyVersion=False;installLocation=auto;largeHeap=False;theme=TitleBar;hardwareAccelerated=true;apiKey=;minSdkVersion=23;targetSdkVersion=34</VerInfo_Keys>
         <BT_BuildType>AppStore</BT_BuildType>
         <IncludeAndroid_NotificationAccentColor>false</IncludeAndroid_NotificationAccentColor>
         <Android_BackgroundColor>#5F406D</Android_BackgroundColor>
         <Android_DarkBackgroundColor>#5F406D</Android_DarkBackgroundColor>
         <DCC_GenerateAndroidAppBundleFile>true</DCC_GenerateAndroidAppBundleFile>
+        <PF_KeyStore>..\_PRIVATE\blufo-android.keystore</PF_KeyStore>
+        <PF_KeyStorePass>852B47985FC3079ECF79E579A4047BF1E4420849A007979E97FF0FD68E643CD0DB48A3D6E35F1C31C1B0572FFA95C375BABB3651043C2288165745F0E5F4228DC949F31ED506FADDBFCAAF0D071E1D0F92013E44</PF_KeyStorePass>
+        <PF_AliasKey>blufo</PF_AliasKey>
+        <PF_AliasKeyPass>852B47CF5FC00782CF65E52CA4047BF1E44C0815A007979E97FF0FD68E643CD0DB48A3D6E35F1C31C1B0572FFA95C375BABB3651043C2288165745F0E5F4228DC949F31ED506FADDBFCAAF0D071E1D0F92013E44</PF_AliasKeyPass>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Cfg_2_iOSDevice64)'!=''">
         <VerInfo_AutoIncVersion>true</VerInfo_AutoIncVersion>
-        <VerInfo_Build>5</VerInfo_Build>
+        <VerInfo_Build>7</VerInfo_Build>
         <VerInfo_BundleId>fr.olfsoftware.blufo.ios</VerInfo_BundleId>
         <VerInfo_UIDeviceFamily>iPhoneAndiPad</VerInfo_UIDeviceFamily>
         <VerInfo_IncludeVerInfo>true</VerInfo_IncludeVerInfo>
-        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=fr;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.olfsoftware.blufo.ios;CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.2.5;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera;CFBundleShortVersionString=1.2;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSFaceIDUsageDescription=The reason for accessing the face id;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers;UIViewControllerBasedStatusBarAppearance=NO;UIStatusBarHidden=YES;UIPreferredDefaultInterfaceOrientation=UIInterfaceOrientationLandscapeLeft</VerInfo_Keys>
+        <VerInfo_Keys>CFBundleName=$(MSBuildProjectName);CFBundleDevelopmentRegion=fr;CFBundleDisplayName=$(MSBuildProjectName);CFBundleIdentifier=fr.olfsoftware.blufo.ios;CFBundleInfoDictionaryVersion=7.1;CFBundleVersion=1.2.7;CFBundlePackageType=APPL;CFBundleSignature=????;LSRequiresIPhoneOS=true;CFBundleAllowMixedLocalizations=YES;CFBundleExecutable=$(MSBuildProjectName);UIDeviceFamily=iPhone &amp; iPad;NSLocationAlwaysUsageDescription=;NSLocationWhenInUseUsageDescription=The reason for accessing the location information of the user;UIBackgroundModes=;NSContactsUsageDescription=The reason for accessing the contacts;NSPhotoLibraryUsageDescription=The reason for accessing the photo library;NSCameraUsageDescription=The reason for accessing the camera;CFBundleShortVersionString=1.2;NSPhotoLibraryAddUsageDescription=The reason for adding to the photo library;NSFaceIDUsageDescription=The reason for accessing the face id;NSLocationAlwaysAndWhenInUseUsageDescription=The reason for accessing the location information of the user;NSMicrophoneUsageDescription=The reason for accessing the microphone;NSSiriUsageDescription=The reason for accessing Siri;ITSAppUsesNonExemptEncryption=false;NSBluetoothAlwaysUsageDescription=The reason for accessing bluetooth;NSBluetoothPeripheralUsageDescription=The reason for accessing bluetooth peripherals;NSCalendarsUsageDescription=The reason for accessing the calendar data;NSRemindersUsageDescription=The reason for accessing the reminders;NSMotionUsageDescription=The reason for accessing the accelerometer;NSSpeechRecognitionUsageDescription=The reason for requesting to send user data to Apple&apos;s speech recognition servers;UIViewControllerBasedStatusBarAppearance=NO;UIStatusBarHidden=YES;UIPreferredDefaultInterfaceOrientation=UIInterfaceOrientationLandscapeLeft</VerInfo_Keys>
         <iOS_BackgroundColor>FF5F406D</iOS_BackgroundColor>
         <iOS_DarkBackgroundColor>FF5F406D</iOS_DarkBackgroundColor>
         <BT_BuildType>AppStore</BT_BuildType>
@@ -823,9 +826,8 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\assets\icons\blufo-1024x1024.png" Configuration="Release" Class="iPad_LaunchDark2x">
+                <DeployFile LocalName="..\assets\icons\blufo-1024x1024.png" Configuration="Release" Class="iOS_AppStore1024">
                     <Platform Name="iOSDevice64">
-                        <RemoteName>FM_LaunchScreenImage_iPadDark@2x.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -857,8 +859,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\assets\icons\blufo-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
-                <DeployFile LocalName="..\assets\icons\blufo-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
                 <DeployFile LocalName="..\assets\icons\blufo-150x150.png" Configuration="Debug" Class="UWP_DelphiLogo150"/>
                 <DeployFile LocalName="..\assets\icons\blufo-152x152.png" Configuration="Debug" Class="iPad_AppIcon152">
                     <Platform Name="iOSDevice64">
@@ -972,8 +972,6 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="..\assets\icons\blufo-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
-                <DeployFile LocalName="..\assets\icons\blufo-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
                 <DeployFile LocalName="..\assets\icons\blufo-44x44.png" Configuration="Debug" Class="UWP_DelphiLogo44"/>
                 <DeployFile LocalName="..\assets\icons\blufo-470x320.png" Configuration="Debug" Class="Android_SplashImage470">
                     <Platform Name="Android64">
@@ -1143,18 +1141,6 @@
                     </Platform>
                 </DeployFile>
                 <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Debug" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
-                <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
                 <DeployFile LocalName="..\audio\GinnyCulp\Loop 6.mp3" Configuration="Release" Class="File"/>
                 <DeployFile LocalName="..\audio\GinnyCulp\Loop6.mp3" Configuration="Debug" Class="File"/>
                 <DeployFile LocalName="..\audio\GinnyCulp\Loop6.mp3" Configuration="Release" Class="File"/>
@@ -1381,11 +1367,7 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="Toutes les plates-formes\Release\blufo" Configuration="Release" Class="ProjectOutput">
-                    <RemoteName>blufo</RemoteName>
-                    <Overwrite>true</Overwrite>
-                </DeployFile>
-                <DeployFile LocalName="Win32\Debug\blufo.exe" Configuration="Debug" Class="ProjectOutput"/>
+                <DeployFile LocalName="Toutes les plates-formes\Release\blufo" Configuration="Release" Class="ProjectOutput"/>
                 <DeployFile LocalName="Win32\Debug\blufo.exe" Configuration="Debug" Class="ProjectOutput"/>
                 <DeployFile LocalName="Win32\Release\blufo.exe" Configuration="Release" Class="ProjectOutput">
                     <Platform Name="Win32">
