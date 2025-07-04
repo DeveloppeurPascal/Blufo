@@ -1,34 +1,34 @@
-/// <summary>
-/// ***************************************************************************
-///
-/// Blufo
-///
-/// Copyright 2016-2024 Patrick Prémartin under AGPL 3.0 license.
-///
-/// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-/// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-/// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
-/// THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-/// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-/// FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
-/// DEALINGS IN THE SOFTWARE.
-///
-/// ***************************************************************************
-///
-/// Author(s) :
-/// Patrick PREMARTIN
-///
-/// Site :
-/// https://blufo.gamolf.fr/
-///
-/// Project site :
-/// https://github.com/DeveloppeurPascal/Blufo
-///
-/// ***************************************************************************
-/// File last update : 2024-09-19T21:37:12.000+02:00
-/// Signature : 604e69bc697dcc5d753cac016274a9f5ba511a97
-/// ***************************************************************************
-/// </summary>
+(* C2PP
+  ***************************************************************************
+
+  Blufo
+
+  Copyright 2016-2025 Patrick Prémartin under AGPL 3.0 license.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+  THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+  DEALINGS IN THE SOFTWARE.
+
+  ***************************************************************************
+
+  Author(s) :
+  Patrick PREMARTIN
+
+  Site :
+  https://blufo.gamolf.fr/
+
+  Project site :
+  https://github.com/DeveloppeurPascal/Blufo
+
+  ***************************************************************************
+  File last update : 2025-07-04T11:18:54.889+02:00
+  Signature : a4d021f50f8b137b5e78ab9cb3ce0c607867c025
+  ***************************************************************************
+*)
 
 unit fMain;
 
@@ -64,12 +64,14 @@ uses
 
 type
   tsprite = class(TObject)
+  public
     x, y: single; // position de l'angle supérieur gauche du sprite
     x_sens, y_sens: single;
     // vecteurs pour calculer le mouvement du sprite à chaque boucle de jeu
     largeur, hauteur: single; // taille du sprite
     image: trectangle;
     x_accelerateur: integer;
+    destructor Destroy; override;
   end;
 
   tjoueur = class(tsprite)
@@ -146,7 +148,7 @@ type
     lblJeuScore: TLabel;
     btnVitesseGauche: trectangle;
     btnVitesseDroite: trectangle;
-    Rectangle1: trectangle;
+    btnPause: trectangle;
     audioLoop6: TMediaPlayer;
     audioLoop6Check: TTimer;
     procedure FormCreate(Sender: TObject);
@@ -165,7 +167,7 @@ type
     procedure btnVitesseDroiteClick(Sender: TObject);
     procedure FormKeyDown(Sender: TObject; var Key: Word; var KeyChar: Char;
       Shift: TShiftState);
-    procedure Rectangle1Click(Sender: TObject);
+    procedure btnPauseClick(Sender: TObject);
     procedure audioLoop6CheckTimer(Sender: TObject);
     procedure FormSaveState(Sender: TObject);
     procedure ecran_jeuMouseDown(Sender: TObject; Button: TMouseButton;
@@ -214,7 +216,7 @@ uses
 
 procedure TfrmMain.affiche_credits;
 begin
-  memo_remerciements.text := 'Blufo v1.2' + slinebreak + '(c) 2016-' +
+  memo_remerciements.text := 'Blufo v1.3' + slinebreak + '(c) 2016-' +
     now.year.tostring + ' Patrick Prémartin' + slinebreak + slinebreak +
     'Sur une idée originelle d''on ne sait plus qui, le Blitz est un classique des jeux d''arcade.'
     + slinebreak + slinebreak +
@@ -263,6 +265,31 @@ end;
 
 procedure TfrmMain.affiche_jeu(initialise_le_jeu: boolean = true);
 begin
+  taux_reduction := min(1, width / 20 * imgBloc1.AbsoluteWidth);
+
+  imgJoueur.Scale.x := taux_reduction;
+  imgJoueur.Scale.y := taux_reduction;
+  imgMissileBleu.Scale.x := taux_reduction;
+  imgMissileBleu.Scale.y := taux_reduction;
+  imgMissileVert.Scale.x := taux_reduction;
+  imgMissileVert.Scale.y := taux_reduction;
+  imgMissileRouge.Scale.x := taux_reduction;
+  imgMissileRouge.Scale.y := taux_reduction;
+  imgBloc1.Scale.x := taux_reduction;
+  imgBloc1.Scale.y := taux_reduction;
+  imgBloc2.Scale.x := taux_reduction;
+  imgBloc2.Scale.y := taux_reduction;
+  imgBloc3.Scale.x := taux_reduction;
+  imgBloc3.Scale.y := taux_reduction;
+  imgBloc4.Scale.x := taux_reduction;
+  imgBloc4.Scale.y := taux_reduction;
+  imgBloc5.Scale.x := taux_reduction;
+  imgBloc5.Scale.y := taux_reduction;
+  imgBloc6.Scale.x := taux_reduction;
+  imgBloc6.Scale.y := taux_reduction;
+  imgExplosion.Scale.x := taux_reduction;
+  imgExplosion.Scale.y := taux_reduction;
+  //
   if (not assigned(joueur)) then
     joueur := tjoueur.Create;
   try
@@ -556,44 +583,13 @@ end;
 
 procedure TfrmMain.FormCreate(Sender: TObject);
 var
-  taille_initiale, taille_apres_calcul: single;
   FichierAudioLoop6: string;
 begin
+  taux_reduction := 1;
   _divers.Visible := false;
   // initialisation du programme et des différents écrans
   ecran_menu.Visible := false;
   ecran_menu.Enabled := false;
-  (* affichage, puis masquage de l'écran de jeu obligatoire pour qu'il calcule sa surface d'affichage. *)
-  taille_initiale := ecran_jeu.AbsoluteHeight;
-  ecran_jeu.Visible := true;
-  ecran_jeu.Visible := false;
-  taille_apres_calcul := ecran_jeu.AbsoluteHeight;
-  if (taille_apres_calcul < taille_initiale) then
-    taux_reduction := taille_apres_calcul / taille_initiale
-  else
-    taux_reduction := 1;
-  imgJoueur.Scale.x := taux_reduction;
-  imgJoueur.Scale.y := taux_reduction;
-  imgMissileBleu.Scale.x := taux_reduction;
-  imgMissileBleu.Scale.y := taux_reduction;
-  imgMissileVert.Scale.x := taux_reduction;
-  imgMissileVert.Scale.y := taux_reduction;
-  imgMissileRouge.Scale.x := taux_reduction;
-  imgMissileRouge.Scale.y := taux_reduction;
-  imgBloc1.Scale.x := taux_reduction;
-  imgBloc1.Scale.y := taux_reduction;
-  imgBloc2.Scale.x := taux_reduction;
-  imgBloc2.Scale.y := taux_reduction;
-  imgBloc3.Scale.x := taux_reduction;
-  imgBloc3.Scale.y := taux_reduction;
-  imgBloc4.Scale.x := taux_reduction;
-  imgBloc4.Scale.y := taux_reduction;
-  imgBloc5.Scale.x := taux_reduction;
-  imgBloc5.Scale.y := taux_reduction;
-  imgBloc6.Scale.x := taux_reduction;
-  imgBloc6.Scale.y := taux_reduction;
-  imgExplosion.Scale.x := taux_reduction;
-  imgExplosion.Scale.y := taux_reduction;
   (* l'écran de jeu et le placement des blocs dépend en effet de ce calcul initial (sinon la zone garde la taille définie dans l'EDI à la conception du programme) *)
   ecran_jeu.Enabled := false;
   ecran_halloffame.Visible := false;
@@ -610,7 +606,11 @@ begin
   btnRestore.Visible := false;
   // TODO : activer btnRestore si une sauvegarde du jeu existe
   ecran_actuel := ecran_menu;
-  affiche_menu;
+  tthread.forcequeue(nil,
+    procedure
+    begin
+      affiche_menu;
+    end);
   // initialisation boucle sonore
 {$IF defined(ANDROID)}
   // deploy in .\assets\internal\
@@ -730,6 +730,18 @@ procedure TfrmMain.glisse_vers_ecran(ecran: TLayout);
 begin
   if (ecran_actuel <> ecran) then
   begin
+    ecran.BeginUpdate;
+    try
+      ecran.Align := TAlignLayout.None;
+      ecran.width := width;
+      if sol.Visible then
+        ecran.height := height - sol.height
+      else
+        ecran.height := height;
+      ecran.Position.x := 0;
+    finally
+      ecran.EndUpdate;
+    end;
     ecran_nouveau := ecran;
     ecran_nouveau.Visible := true;
     ecran_nouveau.Enabled := true;
@@ -744,9 +756,22 @@ begin
   end
   else if (not ecran.Visible) or (not ecran.Enabled) then
   begin
-    ecran.Opacity := 0;
-    ecran.Enabled := true;
-    ecran.Visible := true;
+    ecran.BeginUpdate;
+    try
+      ecran.Align := TAlignLayout.None;
+      ecran.width := width;
+      if sol.Visible then
+        ecran.height := height - sol.height
+      else
+        ecran.height := height;
+      ecran.Position.x := 0;
+      ecran.Position.y := 0;
+      ecran.Opacity := 0;
+      ecran.Enabled := true;
+      ecran.Visible := true;
+    finally
+      ecran.EndUpdate;
+    end;
     ani_premier_affichage.Start;
   end;
 end;
@@ -773,9 +798,14 @@ begin
     joueur.x_sens := imgBloc1.AbsoluteWidth / 8;
   joueur.y_sens := 0;
   joueur.image := imgJoueur;
-  joueur.image.Parent := ecran_jeu;
-  joueur.image.Visible := true;
-  joueur.image.Enabled := true;
+  joueur.image.BeginUpdate;
+  try
+    joueur.image.Parent := ecran_jeu;
+    joueur.image.Visible := true;
+    joueur.image.Enabled := true;
+  finally
+    joueur.image.EndUpdate;
+  end;
   joueur.largeur := joueur.image.AbsoluteWidth;
   joueur.hauteur := joueur.image.AbsoluteHeight;
   joueur.num_ligne := 0;
@@ -801,9 +831,14 @@ begin
     else
       missile.image := imgMissileVert;
     end;
-    missile.image.Parent := ecran_jeu;
-    missile.image.Visible := true;
-    missile.image.Enabled := true;
+    missile.image.BeginUpdate;
+    try
+      missile.image.Parent := ecran_jeu;
+      missile.image.Visible := true;
+      missile.image.Enabled := true;
+    finally
+      missile.image.EndUpdate;
+    end;
     missile.largeur := missile.image.AbsoluteWidth;
     missile.hauteur := missile.image.AbsoluteHeight;
     missile.envoye := true;
@@ -824,6 +859,8 @@ procedure TfrmMain.MettreEnPause;
 begin
   jeu_en_cours := false;
   btnRestore.Visible := true;
+  lblJeuViesRestantes.Visible := false;
+  lblJeuScore.Visible := false;
   affiche_menu;
 end;
 
@@ -836,9 +873,11 @@ var
   largeur_bloc, hauteur_bloc: single;
   x_mini: single;
 begin
+  obstacles.Clear;
+
   largeur_bloc := imgBloc1.AbsoluteWidth;
   hauteur_bloc := imgBloc1.AbsoluteHeight;
-  // nb de blocs rengeables en largeur
+  // nb de blocs rangeables en largeur
   largeur_ecran := floor(ecran_jeu.AbsoluteWidth / largeur_bloc) - 1;
   // on retire un bloc pour ne pas rester bloqué sur un bord de l'écran
   x_mini := (ecran_jeu.AbsoluteWidth - largeur_ecran * largeur_bloc) / 2;
@@ -859,23 +898,28 @@ begin
         obstacle.hauteur := hauteur_bloc;
         case Random(8) of
           0:
-            obstacle.image := imgBloc1.Clone(ecran_jeu) as trectangle;
+            obstacle.image := imgBloc1.Clone(nil) as trectangle;
           1:
-            obstacle.image := imgBloc2.Clone(ecran_jeu) as trectangle;
+            obstacle.image := imgBloc2.Clone(nil) as trectangle;
           2:
-            obstacle.image := imgBloc3.Clone(ecran_jeu) as trectangle;
+            obstacle.image := imgBloc3.Clone(nil) as trectangle;
           3:
-            obstacle.image := imgBloc4.Clone(ecran_jeu) as trectangle;
+            obstacle.image := imgBloc4.Clone(nil) as trectangle;
           4:
-            obstacle.image := imgBloc5.Clone(ecran_jeu) as trectangle;
+            obstacle.image := imgBloc5.Clone(nil) as trectangle;
         else
-          obstacle.image := imgBloc6.Clone(ecran_jeu) as trectangle;
+          obstacle.image := imgBloc6.Clone(nil) as trectangle;
         end;
-        obstacle.image.Position.x := obstacle.x;
-        obstacle.image.Position.y := obstacle.y;
-        obstacle.image.Parent := ecran_jeu;
-        obstacle.image.Visible := true;
-        obstacle.image.Enabled := true;
+        obstacle.image.BeginUpdate;
+        try
+          obstacle.image.Position.x := obstacle.x;
+          obstacle.image.Position.y := obstacle.y;
+          obstacle.image.Parent := ecran_jeu;
+          obstacle.image.Visible := true;
+          obstacle.image.Enabled := true;
+        finally
+          obstacle.image.EndUpdate;
+        end;
         obstacle.actif := true;
         obstacle.a_supprimer := false;
         obstacles.Add(obstacle);
@@ -892,9 +936,17 @@ begin
   btnVitesseDroite.BringToFront;
 end;
 
-procedure TfrmMain.Rectangle1Click(Sender: TObject);
+procedure TfrmMain.btnPauseClick(Sender: TObject);
 begin
   MettreEnPause;
+end;
+
+{ tsprite }
+
+destructor tsprite.Destroy;
+begin
+  image.Free;
+  inherited;
 end;
 
 initialization
@@ -902,7 +954,7 @@ initialization
 score_init('Gamolf', 'Blufo');
 
 {$IFDEF DEBUG}
-reportmemoryleaksonshutdown := true;
+ReportMemoryLeaksOnShutdown := true;
 {$ENDIF}
 
 end.

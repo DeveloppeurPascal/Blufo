@@ -194,6 +194,7 @@ object frmMain: TfrmMain
     Size.Width = 1024.000000000000000000
     Size.Height = 704.000000000000000000
     Size.PlatformDefault = False
+    Visible = False
     TabOrder = 1
     object titre_du_jeu: TText
       Align = Client
@@ -414,7 +415,7 @@ object frmMain: TfrmMain
       Stroke.Kind = None
       OnClick = btnVitesseDroiteClick
     end
-    object Rectangle1: TRectangle
+    object btnPause: TRectangle
       Anchors = [akTop, akRight]
       Fill.Bitmap.Bitmap.PNG = {
         89504E470D0A1A0A0000000D494844520000003200000030080600000053F729
@@ -442,7 +443,7 @@ object frmMain: TfrmMain
       Size.Width = 50.000000000000000000
       Size.Height = 50.000000000000000000
       Size.PlatformDefault = False
-      OnClick = Rectangle1Click
+      OnClick = btnPauseClick
     end
   end
   object ecran_halloffame: TLayout
@@ -1543,7 +1544,6 @@ object frmMain: TfrmMain
     Size.Width = 1024.000000000000000000
     Size.Height = 768.000000000000000000
     Size.PlatformDefault = False
-    Visible = False
     TabOrder = 6
     object ani_ancien_ecran: TFloatAnimation
       Duration = 0.500000000000000000
