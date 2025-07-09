@@ -11,8 +11,6 @@
 * Prendre en charge les contrôleurs de jeu dans les menus
 * Prendre en charge les télécommandes sur AndroidTV
 * Adapter l'application pour fonctionner sous AndroidTV
-* Soumettre le jeu sur Microsoft Store
-* Faire un déploiement pour Windows puis le mettre à jour sur Itch.io & co
 * prendre en charge le cycle de vie de l'application mobile
 
 
